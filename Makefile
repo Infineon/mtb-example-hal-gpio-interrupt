@@ -3,11 +3,11 @@
 # \version 1.0
 #
 # \brief
-# Top-level appication make file.
+# Top-level application make file.
 #
 ################################################################################
 # \copyright
-# Copyright 2018-2019 Cypress Semiconductor Corporation
+# Copyright 2018-2020 Cypress Semiconductor Corporation
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,6 +30,7 @@
 
 # Target board/hardware
 TARGET=CY8CPROTO-062-4343W
+
 # Name of application (used to derive name of final linked file).
 APPNAME=mtb-example-psoc6-gpio-interrupt
 
@@ -46,7 +47,7 @@ TOOLCHAIN=GCC_ARM
 #
 # Debug   -- build with minimal optimizations, focus on debugging.
 # Release -- build with full optimizations
-CONFIG=Release
+CONFIG=Debug
 
 # If set to "true" or "1", display full command-lines when building.
 VERBOSE=
