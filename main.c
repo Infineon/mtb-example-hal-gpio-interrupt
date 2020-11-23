@@ -47,8 +47,8 @@
 /******************************************************************************
  * Macros
  *****************************************************************************/
-#define DELAY_SHORT             (250)   /* milliseconds */
-#define DELAY_LONG              (500)   /* milliseconds */
+#define DELAY_SHORT_MS          (250)   /* milliseconds */
+#define DELAY_LONG_MS           (500)   /* milliseconds */
 #define LED_BLINK_COUNT         (4)
 #define GPIO_INTERRUPT_PRIORITY (7u)
 
@@ -80,7 +80,7 @@ int main(void)
 {
     cy_rslt_t result;
     uint32_t count = 0;
-    uint32_t delay_ms = DELAY_LONG;
+    uint32_t delay_led_blink = DELAY_LONG_MS;
 
     /* Initialize the device and board peripherals */
     result = cybsp_init();
@@ -124,13 +124,13 @@ int main(void)
             gpio_intr_flag = false;
 
             /* Update LED toggle delay */
-            if (DELAY_LONG == delay_ms)
+            if (DELAY_LONG_MS == delay_led_blink)
             {
-                delay_ms = DELAY_SHORT;
+                delay_led_blink = DELAY_SHORT_MS;
             }
             else
             {
-                delay_ms = DELAY_LONG;
+                delay_led_blink = DELAY_LONG_MS;
             }
         }
 
@@ -138,9 +138,9 @@ int main(void)
         for (count = 0; count < LED_BLINK_COUNT; count++)
         {
             cyhal_gpio_write(CYBSP_USER_LED, CYBSP_LED_STATE_ON);
-            cyhal_system_delay_ms(delay_ms);
+            cyhal_system_delay_ms(delay_led_blink);
             cyhal_gpio_write(CYBSP_USER_LED, CYBSP_LED_STATE_OFF);
-            cyhal_system_delay_ms(delay_ms);
+            cyhal_system_delay_ms(delay_led_blink);
         }
 
         /* Enter deep sleep mode */
