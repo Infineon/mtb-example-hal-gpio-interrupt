@@ -2,12 +2,12 @@
 * File Name:   main.c
 *
 * Description: This code example demonstrates the use of GPIO configured as an
-*              input pin to generate interrupts in PSoC 6 MCU.
+*              input pin to generate interrupts.
 *
 * Related Document: README.md
 *
 *******************************************************************************
-* Copyright 2019-2021, Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright 2019-2022, Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 *
 * This software, including source code, documentation and related
@@ -39,11 +39,9 @@
 * so agrees to indemnify Cypress against all liability.
 *******************************************************************************/
 
-#include "cy_pdl.h"
 #include "cy_retarget_io.h"
 #include "cyhal.h"
 #include "cybsp.h"
-
 
 /******************************************************************************
  * Macros
@@ -52,7 +50,6 @@
 #define DELAY_LONG_MS           (500)   /* milliseconds */
 #define LED_BLINK_COUNT         (4)
 #define GPIO_INTERRUPT_PRIORITY (7u)
-
 
 /*******************************************************************************
 * Function Prototypes
@@ -64,6 +61,7 @@ static void gpio_interrupt_handler(void *handler_arg, cyhal_gpio_event_t event);
 * Global Variables
 ********************************************************************************/
 volatile bool gpio_intr_flag = false;
+cyhal_gpio_callback_data_t gpio_btn_callback_data;    
 
 
 /*******************************************************************************
@@ -105,8 +103,9 @@ int main(void)
                     CYHAL_GPIO_DRIVE_PULLUP, CYBSP_BTN_OFF);
 
     /* Configure GPIO interrupt */
+    gpio_btn_callback_data.callback = gpio_interrupt_handler;
     cyhal_gpio_register_callback(CYBSP_USER_BTN, 
-                                 gpio_interrupt_handler, NULL);
+                                 &gpio_btn_callback_data);
     cyhal_gpio_enable_event(CYBSP_USER_BTN, CYHAL_GPIO_IRQ_FALL, 
                                  GPIO_INTERRUPT_PRIORITY, true);
 
@@ -115,7 +114,7 @@ int main(void)
 
     /* \x1b[2J\x1b[;H - ANSI ESC sequence for clear screen */
     printf("\x1b[2J\x1b[;H");
-    printf("**************** PSoC 6 MCU: GPIO Interrupt *****************\r\n");
+    printf("**************** HAL: GPIO Interrupt *****************\r\n");
 
     for (;;)
     {
@@ -145,7 +144,7 @@ int main(void)
         }
 
         /* Enter deep sleep mode */
-        cyhal_system_deepsleep();
+        cyhal_syspm_deepsleep();
     }
 }
 
@@ -158,10 +157,10 @@ int main(void)
 *
 * Parameters:
 *  void *handler_arg (unused)
-*  cyhal_gpio_irq_event_t (unused)
+*  cyhal_gpio_event_t (unused)
 *
 *******************************************************************************/
-static void gpio_interrupt_handler(void *handler_arg, cyhal_gpio_irq_event_t event)
+static void gpio_interrupt_handler(void *handler_arg, cyhal_gpio_event_t event)
 {
     gpio_intr_flag = true;
 }
