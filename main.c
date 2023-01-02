@@ -1,12 +1,13 @@
-/******************************************************************************
+/*******************************************************************************
 * File Name:   main.c
 *
 * Description: This code example demonstrates the use of GPIO configured as an
 *              input pin to generate interrupts.
 *
-* Related Document: README.md
+* Related Document: See README.md
 *
-*******************************************************************************
+*
+********************************************************************************
 * Copyright 2019-2022, Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 *
@@ -39,29 +40,60 @@
 * so agrees to indemnify Cypress against all liability.
 *******************************************************************************/
 
-#include "cy_retarget_io.h"
+/*******************************************************************************
+* Header Files
+*******************************************************************************/
 #include "cyhal.h"
 #include "cybsp.h"
+#include "cy_retarget_io.h"
 
-/******************************************************************************
- * Macros
- *****************************************************************************/
+
+/*******************************************************************************
+* Macros
+*******************************************************************************/
 #define DELAY_SHORT_MS          (250)   /* milliseconds */
 #define DELAY_LONG_MS           (500)   /* milliseconds */
 #define LED_BLINK_COUNT         (4)
 #define GPIO_INTERRUPT_PRIORITY (7u)
 
+
+/*******************************************************************************
+* Global Variables
+*******************************************************************************/
+volatile bool gpio_intr_flag = false;
+cyhal_gpio_callback_data_t gpio_btn_callback_data;
+
+
 /*******************************************************************************
 * Function Prototypes
-********************************************************************************/
+*******************************************************************************/
 static void gpio_interrupt_handler(void *handler_arg, cyhal_gpio_event_t event);
 
 
 /*******************************************************************************
-* Global Variables
-********************************************************************************/
-volatile bool gpio_intr_flag = false;
-cyhal_gpio_callback_data_t gpio_btn_callback_data;    
+* Function Definitions
+*******************************************************************************/
+
+/*******************************************************************************
+* Function Name: handle_error
+********************************************************************************
+* Summary:
+* User defined error handling function
+*
+* Parameters:
+*  uint32_t status - status indicates success or failure
+*
+* Return:
+*  void
+*
+*******************************************************************************/
+void handle_error(uint32_t status)
+{
+    if (status != CY_RSLT_SUCCESS)
+    {
+        CY_ASSERT(0);
+    }
+}
 
 
 /*******************************************************************************
@@ -83,24 +115,26 @@ int main(void)
 
     /* Initialize the device and board peripherals */
     result = cybsp_init();
-    
     /* Board init failed. Stop program execution */
-    if (result != CY_RSLT_SUCCESS)
-    {
-        CY_ASSERT(0);
-    }
+    handle_error(result);
 
     /* Initialize retarget-io to use the debug UART port */
     result = cy_retarget_io_init(CYBSP_DEBUG_UART_TX, CYBSP_DEBUG_UART_RX,
                                  CY_RETARGET_IO_BAUDRATE);
+    /* Retarget-io init failed. Stop program execution */
+    handle_error(result);
 
     /* Initialize the user LED */
     result = cyhal_gpio_init(CYBSP_USER_LED, CYHAL_GPIO_DIR_OUTPUT,
                     CYHAL_GPIO_DRIVE_STRONG, CYBSP_LED_STATE_OFF);
+    /* User LED init failed. Stop program execution */
+    handle_error(result);
 
     /* Initialize the user button */
     result = cyhal_gpio_init(CYBSP_USER_BTN, CYHAL_GPIO_DIR_INPUT,
-                    CYHAL_GPIO_DRIVE_PULLUP, CYBSP_BTN_OFF);
+                    CYBSP_USER_BTN_DRIVE, CYBSP_BTN_OFF);
+    /* User button init failed. Stop program execution */
+    handle_error(result);
 
     /* Configure GPIO interrupt */
     gpio_btn_callback_data.callback = gpio_interrupt_handler;
@@ -114,7 +148,7 @@ int main(void)
 
     /* \x1b[2J\x1b[;H - ANSI ESC sequence for clear screen */
     printf("\x1b[2J\x1b[;H");
-    printf("**************** HAL: GPIO Interrupt *****************\r\n");
+    printf("**************** HAL: GPIO Interrupt ****************\r\n");
 
     for (;;)
     {
@@ -164,5 +198,6 @@ static void gpio_interrupt_handler(void *handler_arg, cyhal_gpio_event_t event)
 {
     gpio_intr_flag = true;
 }
+
 
 /* [] END OF FILE */

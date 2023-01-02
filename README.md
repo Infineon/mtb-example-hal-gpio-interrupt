@@ -1,17 +1,21 @@
 # HAL: GPIO interrupt
 
-This code example demonstrates the use of a GPIO configured as an input pin to generate interrupts on an Infineon MCU. The GPIO signal interrupts the CPU and executes a user-defined Interrupt Service Routine (ISR). The GPIO interrupt acts as a wakeup source to wake the CPU from deep sleep.
+This code example demonstrates the use of a GPIO configured as an input pin to generate interrupts on an Infineon MCU. The GPIO signal interrupts the CPU and executes a user-defined interrupt service routine (ISR). The GPIO interrupt acts as a wakeup source to wake the CPU from deepsleep.
 
-[View this README on GitHub.](https://github.com/Infineon/mtb-example-psoc6-gpio-interrupt)
+[View this README on GitHub.](https://github.com/Infineon/mtb-example-hal-gpio-interrupt)
 
-[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyMTk1MjEiLCJTcGVjIE51bWJlciI6IjAwMi0xOTUyMSIsIkRvYyBUaXRsZSI6IkhBTDogR1BJTyBpbnRlcnJ1cHQiLCJyaWQiOiJhcnZpIiwiRG9jIHZlcnNpb24iOiIzLjAuMCIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJJQ1ciLCJEb2MgRmFtaWx5IjoiUFNPQyJ9)
+[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyMTk1MjEiLCJTcGVjIE51bWJlciI6IjAwMi0xOTUyMSIsIkRvYyBUaXRsZSI6IkhBTDogR1BJTyBpbnRlcnJ1cHQiLCJyaWQiOiJhcnZpIiwiRG9jIHZlcnNpb24iOiIzLjEuMCIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJJQ1ciLCJEb2MgRmFtaWx5IjoiUFNPQyJ9)
 
 ## Requirements
 
 - [ModusToolbox&trade; software](https://www.infineon.com/modustoolbox) v3.0 or later (tested with v3.0)
-- PSoC&trade; 6 Board support package (BSP) minimum required version: 4.0.0
+- Board support package (BSP) minimum required version for:
+   - PSoC&trade; 6 MCU: v4.1.0
+   - KIT_XMC72_EVK: v1.1.0
+   - CYW920829M2EVB-01: v1.0.0.Beta1
 - Programming language: C
-- Associated parts: All [PSoC&trade; 6 MCU](https://www.infineon.com/cms/en/product/microcontroller/32-bit-psoc-arm-cortex-microcontroller/psoc-6-32-bit-arm-cortex-m4-mcu) and [XMC7000 MCU](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/) parts
+- Associated parts: All [PSoC&trade; 6 MCU](https://www.infineon.com/cms/en/product/microcontroller/32-bit-psoc-arm-cortex-microcontroller/psoc-6-32-bit-arm-cortex-m4-mcu) parts, [XMC7000 MCU](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/), and [AIROC&trade; CYW20829 Bluetooth&reg; LE SoC](https://www.infineon.com/cms/en/product/promopages/airoc20829/)
+
 
 ## Supported toolchains (make variable 'TOOLCHAIN')
 
@@ -19,10 +23,11 @@ This code example demonstrates the use of a GPIO configured as an input pin to g
 - Arm&reg; compiler v6.16 (`ARM`)
 - IAR C/C++ compiler v9.30.1 (`IAR`)
 
+
 ## Supported kits (make variable 'TARGET')
 
-- [PSoC&trade; 6 Wi-Fi Bluetooth&reg; prototyping kit](https://www.infineon.com/CY8CPROTO-062-4343W) (`CY8CPROTO-062-4343W`) - Default value of `TARGET`
-- [PSoC&trade; 6 Wi-Fi Bluetooth&reg; pioneer kit](https://www.infineon.com/CY8CKIT-062-WiFi-BT) (`CY8CKIT-062-WIFI-BT`)
+- [PSoC&trade; 6 Wi-Fi Bluetooth&reg; prototyping kit](https://www.infineon.com/CY8CPROTO-062-4343W) (`CY8CPROTO-062-4343W`) – Default value of `TARGET`
+- [PSoC&trade; 6 Wi-Fi Bluetooth&reg; pioneer kit](https://www.infineon.com/CY8CKIT-062-WIFI-BT) (`CY8CKIT-062-WIFI-BT`)
 - [PSoC&trade; 6 Bluetooth&reg; LE pioneer kit](https://www.infineon.com/CY8CKIT-062-BLE) (`CY8CKIT-062-BLE`)
 - [PSoC&trade; 6 Bluetooth&reg; LE prototyping kit](https://www.infineon.com/CY8CPROTO-063-BLE) (`CY8CPROTO-063-BLE`)
 - [PSoC&trade; 62S2 Wi-Fi Bluetooth&reg; pioneer kit](https://www.infineon.com/CY8CKIT-062S2-43012) (`CY8CKIT-062S2-43012`)
@@ -30,16 +35,20 @@ This code example demonstrates the use of a GPIO configured as an input pin to g
 - [PSoC&trade; 62S1 Wi-Fi Bluetooth&reg; pioneer kit](https://www.infineon.com/CYW9P62S1-43012EVB-01) (`CYW9P62S1-43012EVB-01`)
 - [PSoC&trade; 62S3 Wi-Fi Bluetooth&reg; prototyping kit](https://www.infineon.com/CY8CPROTO-062S3-4343W) (`CY8CPROTO-062S3-4343W`)
 - [PSoC&trade; 64 "Secure Boot" Wi-Fi Bluetooth&reg; pioneer kit](https://www.infineon.com/CY8CKIT-064B0S2-4343W) (`CY8CKIT-064B0S2-4343W`)
-- Rapid IoT Connect developer kit (CYSBSYSKIT-DEV-01)
 - [PSoC&trade; 62S4 pioneer kit](https://www.infineon.com/CY8CKIT-062S4) (`CY8CKIT-062S4`)
-- [PSoC&trade; 62S2 evaluation kit](https://www.infineon.com/CY8CEVAL-062S2) (`CY8CEVAL-062S2`, `CY8CEVAL-062S2-LAI-4373M2`)
+- [PSoC&trade; 62S2 evaluation kit](https://www.infineon.com/CY8CEVAL-062S2) (`CY8CEVAL-062S2`, `CY8CEVAL-062S2-LAI-4373M2`, `CY8CEVAL-062S2-MUR-43439M2`)
 - [XMC&trade; 7200 evaluation kit](https://www.infineon.com/KIT_XMC72_EVK) (`KIT_XMC72_EVK`)
+- [PSoC&trade; 64 "Secure Boot" prototyping kit](https://www.infineon.com/CY8CPROTO-064B0S3) (`CY8CPROTO-064B0S3`)
+- [PSoC&trade; 64 "Secure Boot" prototyping kit](https://www.infineon.com/CY8CPROTO-064S1-SB) (`CY8CPROTO-064S1-SB`)
+- AIROC&trade; CYW20829 Bluetooth&reg; LE evaluation kit (`CYW920829M2EVB-01`)
 
 ## Hardware setup
 
 This example uses the board's default configuration. See the kit user guide to ensure that the board is configured correctly.
 
-**Note:** The PSoC&trade; 6 Bluetooth&reg; LE pioneer kit (CY8CKIT-062-BLE) and the PSoC&trade; 6 Wi-Fi Bluetooth&reg; pioneer kit (CY8CKIT-062-WIFI-BT) ship with KitProg2 installed. The ModusToolbox&trade; software requires KitProg3. Before using this code example, make sure that the board is upgraded to KitProg3. The tool and instructions are available in the [Firmware Loader](https://github.com/Infineon/Firmware-loader) GitHub repository. If you do not upgrade, you will see an error like "unable to find CMSIS-DAP device" or "KitProg firmware is out of date".
+**Note:** The PSoC&trade; 6 Bluetooth&reg; LE pioneer kit (CY8CKIT-062-BLE) and the PSoC&trade; 6 Wi-Fi Bluetooth&reg; pioneer kit (CY8CKIT-062-WIFI-BT) ship with KitProg2 installed. The ModusToolbox&trade; software requires KitProg3. Before using this code example, make sure that the board is upgraded to KitProg3. The tool and instructions are available in the [Firmware Loader](https://github.com/Infineon/Firmware-loader) GitHub repository. If you do not upgrade, you will see an error like "Unable to find CMSIS-DAP device" or "KitProg firmware is out of date".
+
+The AIROC&trade; CYW20829 Bluetooth&reg; kit (CYW920829M2EVB-01) ships with KitProg3 version 2.30 installed. The ModusToolbox&trade; software requires KitProg3 with latest version 2.40. Before using this code example, make sure that the board is upgraded to KitProg3. The tool and instructions are available in the [Firmware Loader](https://github.com/Infineon/Firmware-loader) GitHub repository. If you do not upgrade, you will see an error like "Unable to find CMSIS-DAP device" or "KitProg firmware is out of date".
 
 ## Software setup
 
@@ -71,7 +80,7 @@ Create the project and open it using one of the following:
 
 6. Click **Create** to complete the application creation process.
 
-For more details, see the [Eclipse IDE for ModusToolbox&trade; software user guide](https://www.infineon.com/MTBEclipseIDEUserGuide) (locally available at *{ModusToolbox&trade; software install directory}/ide_{version}/docs/mt_ide_user_guide.pdf*).
+For more details, see the [Eclipse IDE for ModusToolbox&trade; software user guide](https://www.infineon.com/MTBEclipseIDEUserGuide) (locally available at *{ModusToolbox&trade; software install directory}/docs_{version}/mt_ide_user_guide.pdf*).
 
 </details>
 
@@ -81,7 +90,7 @@ ModusToolbox&trade; software provides the Project Creator as both a GUI tool and
 
 Use a CLI terminal to invoke the "project-creator-cli" tool. On Windows, use the command line "modus-shell" program provided in the ModusToolbox&trade; software installation instead of a standard Windows command-line application. This shell provides access to all ModusToolbox&trade; software tools. You can access it by typing `modus-shell` in the search box in the Windows menu. In Linux and macOS, you can use any terminal application.
 
-This tool has the following arguments:
+The "project-creator-cli" tool has the following arguments:
 
 Argument | Description | Required/optional
 ---------|-------------|-----------
@@ -90,17 +99,17 @@ Argument | Description | Required/optional
 `--target-dir`| Specify the directory in which the application is to be created if you prefer not to use the default current working directory | Optional
 `--user-app-name`| Specify the name of the application if you prefer to have a name other than the example's default name | Optional
 
-<br>
+<br />
 
-The following example will clone the "[Hello World](https://github.com/Infineon/mtb-example-psoc6-hello-world)" application with the desired name "MyHelloWorld" configured for the *CY8CKIT-062-WIFI-BT* BSP into the specified working directory, *C:/mtb_projects*:
+The following example clones the "[mtb-example-hal-gpio-interrupt](https://github.com/Infineon/mtb-example-hal-gpio-interrupt)" application with the desired name "GpioInterrupt" configured for the *CY8CKIT-062-WIFI-BT* BSP into the specified working directory, *C:/mtb_projects*:
 
    ```
-   project-creator-cli --board-id CY8CKIT-062-WIFI-BT --app-id mtb-example-psoc6-hello-world --user-app-name MyHelloWorld --target-dir "C:/mtb_projects"
+   project-creator-cli --board-id CY8CKIT-062-WIFI-BT --app-id mtb-example-hal-gpio-interrupt --user-app-name GPIOInt --target-dir "C:/mtb_projects"
    ```
 
 **Note:** The project-creator-cli tool uses the `git clone` and `make getlibs` commands to fetch the repository and import the required libraries. For details, see the "Project creator tools" section of the [ModusToolbox&trade; software user guide](https://www.infineon.com/ModusToolboxUserGuide) (locally available at *{ModusToolbox&trade; software install directory}/docs_{version}/mtb_user_guide.pdf*).
 
-To work with a different supported kit later, use the [Library Manager](https://www.infineon.com/ModusToolboxLibraryManager) to choose the BSP for the supported kit. You can invoke the Library Manager GUI tool from the terminal using `make modlibs` command or use the Library Manager CLI tool "library-manager-cli" to change the BSP.
+To work with a different supported kit later, use the [Library Manager](https://www.infineon.com/ModusToolboxLibraryManager) to choose the BSP for the supported kit. You can invoke the Library Manager GUI tool from the terminal using `make library-manager` command or use the Library Manager CLI tool "library-manager-cli" to change the BSP.
 
 The "library-manager-cli" tool has the following arguments:
 
@@ -116,9 +125,9 @@ Argument | Description | Required/optional
 Following example adds the CY8CPROTO-062-4343W BSP to the already created application and makes it the active BSP for the app:
 
    ```
-   library-manager-cli --project "C:/mtb_projects/MyHelloWorld" --add-bsp-name CY8CPROTO-062-4343W --add-bsp-version "latest-v4.X" --add-bsp-location "local"
+   library-manager-cli --project "C:/mtb_projects/GpioInterrupt" --add-bsp-name CY8CPROTO-062-4343W --add-bsp-version "latest-v4.X" --add-bsp-location "local"
 
-   library-manager-cli --project "C:/mtb_projects/MyHelloWorld" --set-active-bsp APP_CY8CPROTO-062-4343W
+   library-manager-cli --project "C:/mtb_projects/GpioInterrupt" --set-active-bsp APP_CY8CPROTO-062-4343W
    ```
 </details>
 
@@ -136,11 +145,11 @@ Use one of the following options:
 
    4. Click **Create** and follow the instructions printed in the bottom pane to import or open the exported project in the respective IDE.
 
-<br>
+<br />
 
 - **Use command-line interface (CLI):**
 
-   1. Follow the instructions from the **In command-line interface (CLI)** section to create the application, and then import the libraries using the `make getlibs` command.
+   1. Follow the instructions from the **In command-line interface (CLI)** section to create the application.
 
    2. Export the application to a supported IDE using the `make <ide>` command.
 
@@ -153,7 +162,7 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
 ## Operation
 
-If using a PSoC&trade; 64 "Secure" MCU kit (like CY8CKIT-064B0S2-4343W), the PSoC&trade; 64 device must be provisioned with keys and policies before being programmed. Follow the instructions in the ["Secure Boot" SDK user guide](https://www.cypress.com/documentation/software-and-drivers/psoc-64-secure-mcu-secure-boot-sdk-user-guide) to provision the device. If the kit is already provisioned, copy-paste the keys and policy folder to the application folder.
+If using a PSoC&trade; 64 "Secure" MCU kit (like CY8CKIT-064B0S2-4343W), the PSoC&trade; 64 device must be provisioned with keys and policies before being programmed. Follow the instructions in the ["Secure Boot" SDK user guide](https://www.infineon.com/dgdlac/Infineon-PSoC_64_Secure_MCU_Secure_Boot_SDK_User_Guide-Software-v07_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0f8c361a7666) to provision the device. If the kit is already provisioned, copy-paste the keys and policy folder to the application folder.
 
 1. Connect the board to your PC using the provided USB cable through the KitProg3 USB connector.
 
@@ -170,78 +179,84 @@ If using a PSoC&trade; 64 "Secure" MCU kit (like CY8CKIT-064B0S2-4343W), the PSo
 
    <details><summary><b>Using CLI</b></summary>
 
-     From the terminal, execute the `make program` command to build and program the application using the default toolchain to the default target. The default toolchain and target are specified in the application's Makefile but you can override those values manually:
+     From the terminal, execute the `make program` command to build and program the application using the default toolchain to the default target. The default toolchain is specified in the application's Makefile but you can override this value manually:
       ```
-      make program TARGET=<BSP> TOOLCHAIN=<toolchain>
+      make program TOOLCHAIN=<toolchain>
       ```
 
       Example:
       ```
-      make program TARGET=CY8CPROTO-062-4343W TOOLCHAIN=GCC_ARM
+      make program TOOLCHAIN=GCC_ARM
       ```
 
     </details>
 
 4. After successful programming, the terminal should display the message as follows:
 
-    Figure 1. Sample output
+    **Figure 1. Sample output**
 
    ![Terminal Output](images/output.png)
 
-   Also, observe that the user LED blinks four times and then turns OFF, indicating that the CPU has entered deep sleep.
+   Also, observe that the user LED blinks four times and then turns OFF, indicating that the CPU has entered deepsleep.
 
-5. Press the user button to trigger an interrupt. This should wake up the device, causing the LED to resume blinking at a faster rate (default = 2 Hz). The faster blink rate indicates that the ISR has executed to change the delay variable used to determine the LED blink rate. The LED blinks four times and the device enters deep sleep again.
+5. Press the user button to trigger an interrupt. This should wake up the device, causing the LED to resume blinking at a faster rate (default = 2 Hz). The faster blink rate indicates that the ISR has executed to change the delay variable used to determine the LED blink rate. The LED blinks four times and the device enters deepsleep again.
 
 6. Press the button again to repeat the wakeup cycle, and the LED resumes blinking at the slower rate (default = 1 Hz). With every interrupt and execution of ISR, the interval of blinking is alternated between the slower and faster rates.
 
 ## Debugging
 
-You can debug the example to step through the code. In the IDE, use the **\<Application Name> Debug (KitProg3_MiniProg4)** configuration in the **Quick Panel**. For details, see the "Program and debug" section in the [Eclipse IDE for ModusToolbox&trade; software user guide](https://www.cypress.com/MTBEclipseIDEUserGuide).
+You can debug the example to step through the code. In the IDE, use the **\<Application Name> Debug (KitProg3_MiniProg4)** configuration in the **Quick Panel**. For details, see the "Program and debug" section in the [Eclipse IDE for ModusToolbox&trade; software user guide](https://www.infineon.com/MTBEclipseIDEUserGuide).
 
-**Note:** **(Only while debugging)** On the CM4 CPU, some code in `main()` may execute before the debugger halts at the beginning of `main()`. This means that some code executes twice – once before the debugger stops execution, and again after the debugger resets the program counter to the beginning of `main()`. See [KBA231071](https://community.cypress.com/docs/DOC-21143) to learn about this and for the workaround.
+**Note:** **(Only while debugging PSoC&trade; 6 MCU)** On the CM4 CPU, some code in `main()` may execute before the debugger halts at the beginning of `main()`. This means that some code executes twice – once before the debugger stops execution, and again after the debugger resets the program counter to the beginning of `main()`. See [KBA231071](https://community.infineon.com/docs/DOC-21143) to learn about this and for the workaround.
 
 
 ## Design and implementation
 
 ### Resources and settings
 
-This code example uses a GPIO interrupt to wake the Arm® Cortex®-M4 or Cortex®-M7 CPU from deep sleep. An LED is connected to an output pin; it is used for indicating the current state of the CPU. A blinking LED indicates that the CPU is active. After four successive blinks, the CPU is instructed to enter deep sleep. The GPIO state is retained during deep sleep, so the LED stops blinking and stays OFF to indicate that the CPU is in deep sleep.
+This code example uses a GPIO interrupt to wake the Arm&reg; Cortex&reg;-M4 or Cortex&reg;-M7 CPU from deepsleep. An LED is connected to an output pin; it is used for indicating the current state of the CPU. A blinking LED indicates that the CPU is active. After four successive blinks, the CPU is instructed to enter deepsleep. The GPIO state is retained during deepsleep, so the LED stops blinking and stays OFF to indicate that the CPU is in deepsleep.
 
 An input pin, externally connected to a switch, is configured to generate an interrupt when the switch is pressed. The interrupt triggers the following two actions:
 
-1. Generates a signal that wakes the CPU from deep sleep
+1. Generates a signal that wakes the CPU from deepsleep.
 
-2. Executes an ISR
+2. Executes an ISR.
 
-When the ISR is executed, a flag is updated, which is used to change the rate of blinking the LED. With every press of the switch, the LED alternates the blinking interval.
+When the ISR is executed, a flag is updated, which is used to change the rate at which the LED blinks. With every press of the switch, the LED alternates the blinking interval.
 
 **Table 1. Application resources**
 
 | Resource      |  Alias/object          |    Purpose     |
 | :-------      | :------------          | :------------  |
-| UART (HAL)    | cy_retarget_io_uart_obj| UART HAL object used by Retarget-IO for Debug UART port |
+| UART (HAL)    | cy_retarget_io_uart_obj| UART HAL object used by retarget-IO for debug UART port |
 | GPIO (HAL)    | CYBSP_USER_LED         |  User LED to show visual output                  |
+
+<br />
 
 ## Related resources
 
 
 Resources  | Links
 -----------|----------------------------------
-Application notes | [AN228571](https://documentation.infineon.com/html/psoc6/Chunk682091728.html#Chunk682091728) – Getting Started with PSoC&trade; 6 MCU on ModusToolbox&trade; software <br> [AN234334](https://www.cypress.com/AN234334) – Getting Started with XMC7000 MCU on ModusToolbox&trade; software | Describes XMC7000 MCU devices and how to build your first application with ModusToolbox&trade; software
-Code examples  | [Using ModusToolbox&trade; software](https://github.com/Infineon/Code-Examples-for-ModusToolbox-Software) on GitHub <br> [Using PSoC&trade; Creator](https://www.infineon.com/cms/en/design-support/software/code-examples/psoc-3-4-5-code-examples-for-psoc-creator/?utm_source=cypress&utm_medium=referral&utm_campaign=202110_globe_en_all_integration-code_example)
-Device documentation | [PSoC&trade; 6 MCU datasheets](https://documentation.infineon.com/html/psoc6/bnm1651211483724.html) <br> [PSoC&trade; 6 technical reference manuals](https://documentation.infineon.com/html/psoc6/zrs1651212645947.html)
-Development kits | Select your kits from the [Evaluation board finder](https://www.infineon.com/cms/en/design-support/finder-selection-tools/product-finder/evaluation-board)
-Libraries on GitHub  | [mtb-pdl-cat1](https://github.com/Infineon/mtb-pdl-cat1) – PSoC&trade; 6 peripheral driver library (PDL)  <br> [mtb-hal-cat1](https://github.com/Infineon/mtb-hal-cat1) – Hardware abstraction layer (HAL) library <br> [retarget-io](https://github.com/Infineon/retarget-io) – Utility library to retarget STDIO messages to a UART port
-Middleware on GitHub  | [capsense](https://github.com/Infineon/capsense) – CAPSENSE&trade; library and documents <br> [psoc6-middleware](https://github.com/Infineon/modustoolbox-software#psoc-6-middleware-libraries) – Links to all PSoC&trade; 6 MCU middleware
-Tools  | [Eclipse IDE for ModusToolbox&trade; software](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software/) – ModusToolbox&trade; software is a collection of easy-to-use software and tools enabling rapid development with Infineon MCUs, covering applications from embedded sense and control to wireless and cloud-connected systems using AIROC&trade; Wi-Fi and Bluetooth® connectivity devices.
+Application notes  | [AN228571](https://www.infineon.com/AN228571) – Getting started with PSoC&trade; 6 MCU on ModusToolbox&trade; software <br /> [AN215656](https://www.infineon.com/AN215656) – PSoC&trade; 6 MCU: Dual-CPU system design <br /> [AN234334](https://www.infineon.com/AN234334) – Getting started with XMC7000 MCU on ModusToolbox&trade; software
+Code examples  | [Using ModusToolbox&trade; software](https://github.com/Infineon/Code-Examples-for-ModusToolbox-Software) on GitHub
+Device documentation | [PSoC&trade; 6 MCU datasheets](https://documentation.infineon.com/html/psoc6/bnm1651211483724.html) <br /> [PSoC&trade; 6 MCU technical reference manuals](https://documentation.infineon.com/html/psoc6/zrs1651212645947.html) <br /> [XMC7000 MCU datasheets](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/) <br /> [XMC7000 MCU technical reference manuals](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/) <br /> [AIROC&trade; CYW20829 Bluetooth&reg; LE SoC](https://www.infineon.com/cms/en/product/promopages/airoc20829)
+Development kits | Select your kits from the [evaluation board finder](https://www.infineon.com/cms/en/design-support/finder-selection-tools/product-finder/evaluation-board)
+Libraries on GitHub  | [mtb-pdl-cat1](https://github.com/Infineon/mtb-pdl-cat1) – PSoC&trade; 6 peripheral driver library (PDL) <br /> [mtb-hal-cat1](https://github.com/Infineon/mtb-hal-cat1) – Hardware abstraction layer (HAL) library <br /> [retarget-io](https://github.com/Infineon/retarget-io) – Utility library to retarget STDIO messages to a UART port
+Middleware on GitHub  | [capsense](https://github.com/Infineon/capsense) – CAPSENSE&trade; library and documents <br /> [psoc6-middleware](https://github.com/Infineon/modustoolbox-software#psoc-6-middleware-libraries) – Links to all PSoC&trade; 6 MCU middleware
+Tools  | [Eclipse IDE for ModusToolbox&trade; software](https://www.infineon.com/modustoolbox) – ModusToolbox&trade; software is a collection of easy-to-use software and tools enabling rapid development with Infineon MCUs, covering applications from embedded sense and control to wireless and cloud-connected systems using AIROC&trade; Wi-Fi and Bluetooth&reg; connectivity devices.
+
+<br />
 
 ## Other resources
 
-Cypress provides a wealth of data at www.cypress.com to help you select the right device, and quickly and effectively integrate it into your design.
 
-For PSoC&trade; 6 MCU devices, see [How to design with PSoC&trade; 6 MCU - KBA223067](https://community.infineon.com/docs/DOC-14644) in the Cypress community.
 
-For XMC&trade; MCU devices, see [32-bit XMC™ industrial microcontroller based on Arm® Cortex®-M](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/).
+Infineon provides a wealth of data at [www.infineon.com](https://www.infineon.com/) to help you select the right device, and quickly and effectively integrate it into your design.
+
+For PSoC&trade; 6 MCU devices, see [How to design with PSoC&trade; 6 MCU - KBA223067](https://community.infineon.com/docs/DOC-14644) in the Infineon developer community.
+
+For XMC&trade; MCU devices, see [32-bit XMC™ Industrial microcontroller based on Arm® Cortex®-M](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/).
 
 
 ## Document history
@@ -252,16 +267,14 @@ Document title: *CE219521* – *HAL: GPIO interrupt*
 | ------- | --------------------- |
 | 1.0.0   | New code example      |
 | 1.1.0   | Updated to support ModusToolbox&trade; software v2.1, added new kits |
-| 2.0.0   | Major update to support ModusToolbox&trade; software v2.2, added support for new kits<br> This version is not backward compatible with ModusToolbox&trade; software v2.1  |
-| 2.1.0   | Added support for CYSBSYSKIT-DEV-01 Rapid IoT Connect Developer Kit |
-| 2.2.0   | Updated to support ModusToolbox&trade; software v2.3<br> Added support for new kits |
-| 3.0.0   | Major update to support ModusToolbox&trade; software v3.0, added support for KIT_XMC72_EVK |
+| 2.0.0   | Major update to support ModusToolbox&trade; software v2.2, added support for new kits.<br> This version is not backward compatible with ModusToolbox&trade; software v2.1.  |
+| 2.1.0   | Added support for CYSBSYSKIT-DEV-01 Rapid IoT Connect developer kit. |
+| 2.2.0   | Updated to support ModusToolbox&trade; software v2.3.<br> Added support for new kits. |
+| 3.0.0   | Major update to support ModusToolbox&trade; software v3.0, added support for KIT_XMC72_EVK. |
+| 3.1.0   | Added support for CY8CEVAL-062S2-MUR-43439M2, CY8CPROTO-064B0S3, CY8CPROTO-064S1-SB and CYW920829M2EVB-01. |
 ------
 
-<br>
-
-All other trademarks or registered trademarks referenced herein are the property of their respective owners.
-
+<br />
 
 ---------------------------------------------------------
 
@@ -269,4 +282,4 @@ All other trademarks or registered trademarks referenced herein are the property
 <br />
 TO THE EXTENT PERMITTED BY APPLICABLE LAW, CYPRESS MAKES NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, WITH REGARD TO THIS DOCUMENT OR ANY SOFTWARE OR ACCOMPANYING HARDWARE, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  No computing device can be absolutely secure.  Therefore, despite security measures implemented in Cypress hardware or software products, Cypress shall have no liability arising out of any security breach, such as unauthorized access to or use of a Cypress product. CYPRESS DOES NOT REPRESENT, WARRANT, OR GUARANTEE THAT CYPRESS PRODUCTS, OR SYSTEMS CREATED USING CYPRESS PRODUCTS, WILL BE FREE FROM CORRUPTION, ATTACK, VIRUSES, INTERFERENCE, HACKING, DATA LOSS OR THEFT, OR OTHER SECURITY INTRUSION (collectively, "Security Breach").  Cypress disclaims any liability relating to any Security Breach, and you shall and hereby do release Cypress from any claim, damage, or other liability arising from any Security Breach.  In addition, the products described in these materials may contain design defects or errors known as errata which may cause the product to deviate from published specifications. To the extent permitted by applicable law, Cypress reserves the right to make changes to this document without further notice. Cypress does not assume any liability arising out of the application or use of any product or circuit described in this document. Any information provided in this document, including any sample design information or programming code, is provided only for reference purposes.  It is the responsibility of the user of this document to properly design, program, and test the functionality and safety of any application made of this information and any resulting product.  "High-Risk Device" means any device or system whose failure could cause personal injury, death, or property damage.  Examples of High-Risk Devices are weapons, nuclear installations, surgical implants, and other medical devices.  "Critical Component" means any component of a High-Risk Device whose failure to perform can be reasonably expected to cause, directly or indirectly, the failure of the High-Risk Device, or to affect its safety or effectiveness.  Cypress is not liable, in whole or in part, and you shall and hereby do release Cypress from any claim, damage, or other liability arising from any use of a Cypress product as a Critical Component in a High-Risk Device. You shall indemnify and hold Cypress, including its affiliates, and its directors, officers, employees, agents, distributors, and assigns harmless from and against all claims, costs, damages, and expenses, arising out of any claim, including claims for product liability, personal injury or death, or property damage arising from any use of a Cypress product as a Critical Component in a High-Risk Device. Cypress products are not intended or authorized for use as a Critical Component in any High-Risk Device except to the limited extent that (i) Cypress’s published data sheet for the product explicitly states Cypress has qualified the product for use in a specific High-Risk Device, or (ii) Cypress has given you advance written authorization to use the product as a Critical Component in the specific High-Risk Device and you have signed a separate indemnification agreement.
 <br />
-Cypress, the Cypress logo, and combinations thereof, WICED, ModusToolbox, PSoC, CapSense, EZ-USB, F-RAM, and Traveo are trademarks or registered trademarks of Cypress or a subsidiary of Cypress in the United States or in other countries. For a more complete list of Cypress trademarks, visit cypress.com. Other names and brands may be claimed as property of their respective owners.
+Cypress, the Cypress logo, and combinations thereof, WICED, ModusToolbox, PSoC, CapSense, EZ-USB, F-RAM, and Traveo are trademarks or registered trademarks of Cypress or a subsidiary of Cypress in the United States or in other countries. For a more complete list of Cypress trademarks, visit www.infineon.com. Other names and brands may be claimed as property of their respective owners.
