@@ -4,7 +4,7 @@ This code example demonstrates the use of a GPIO configured as an input pin to g
 
 [View this README on GitHub.](https://github.com/Infineon/mtb-example-hal-gpio-interrupt)
 
-[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyMTk1MjEiLCJTcGVjIE51bWJlciI6IjAwMi0xOTUyMSIsIkRvYyBUaXRsZSI6IkhBTDogR1BJTyBpbnRlcnJ1cHQiLCJyaWQiOiJhcnZpIiwiRG9jIHZlcnNpb24iOiIzLjIuMCIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJJQ1ciLCJEb2MgRmFtaWx5IjoiUFNPQyJ9)
+[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyMTk1MjEiLCJTcGVjIE51bWJlciI6IjAwMi0xOTUyMSIsIkRvYyBUaXRsZSI6IkhBTDogR1BJTyBpbnRlcnJ1cHQiLCJyaWQiOiJhcnZpIiwiRG9jIHZlcnNpb24iOiIzLjIuMSIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJJQ1ciLCJEb2MgRmFtaWx5IjoiUFNPQyJ9)
 
 ## Requirements
 
@@ -12,7 +12,7 @@ This code example demonstrates the use of a GPIO configured as an input pin to g
 - Board support package (BSP) minimum required version for:
    - PSoC&trade; 6 MCU: v4.1.0
    - KIT_XMC72_EVK: v1.1.0
-   - CYW920829M2EVK-02: v1.0.0.Beta4
+   - CYW920829M2EVK-02: v1.0.1
 - Programming language: C
 - Associated parts: All [PSoC&trade; 6 MCU](https://www.infineon.com/cms/en/product/microcontroller/32-bit-psoc-arm-cortex-microcontroller/psoc-6-32-bit-arm-cortex-m4-mcu) parts, [XMC7000 MCU](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/), and [AIROC&trade; CYW20829 Bluetooth&reg; LE SoC](https://www.infineon.com/cms/en/product/promopages/airoc20829/)
 
@@ -27,6 +27,7 @@ This code example demonstrates the use of a GPIO configured as an input pin to g
 ## Supported kits (make variable 'TARGET')
 
 - [PSoC&trade; 6 Wi-Fi Bluetooth&reg; prototyping kit](https://www.infineon.com/CY8CPROTO-062-4343W) (`CY8CPROTO-062-4343W`) – Default value of `TARGET`
+- [AIROC&trade; CYW20829 Bluetooth&reg; LE evaluation kit](https://www.infineon.com/CYW920829M2EVK-02) (`CYW920829M2EVK-02`)
 - [PSoC&trade; 6 Wi-Fi Bluetooth&reg; pioneer kit](https://www.infineon.com/CY8CKIT-062-WIFI-BT) (`CY8CKIT-062-WIFI-BT`)
 - [PSoC&trade; 6 Bluetooth&reg; LE pioneer kit](https://www.infineon.com/CY8CKIT-062-BLE) (`CY8CKIT-062-BLE`)
 - [PSoC&trade; 6 Bluetooth&reg; LE prototyping kit](https://www.infineon.com/CY8CPROTO-063-BLE) (`CY8CPROTO-063-BLE`)
@@ -41,7 +42,6 @@ This code example demonstrates the use of a GPIO configured as an input pin to g
 - [XMC&trade; 7200 evaluation kit](https://www.infineon.com/KIT_XMC72_EVK) (`KIT_XMC72_EVK`)
 - [PSoC&trade; 64 "Secure Boot" prototyping kit](https://www.infineon.com/CY8CPROTO-064B0S3) (`CY8CPROTO-064B0S3`)
 - [PSoC&trade; 64 "Secure Boot" prototyping kit](https://www.infineon.com/CY8CPROTO-064S1-SB) (`CY8CPROTO-064S1-SB`)
-- AIROC&trade; CYW20829 Bluetooth&reg; LE evaluation kit (`CYW920829M2EVK-02`)
 
 ## Hardware setup
 
@@ -274,6 +274,7 @@ Document title: *CE219521* – *HAL: GPIO interrupt*
 | 3.0.0   | Major update to support ModusToolbox&trade; software v3.0, added support for KIT_XMC72_EVK. |
 | 3.1.0   | Added support for CY8CEVAL-062S2-MUR-43439M2, CY8CPROTO-064B0S3, CY8CPROTO-064S1-SB and CYW920829M2EVB-01. |
 | 3.2.0   | Removed CYW920829M2EVB-01 from supported kits <br> Added support for CYBLE-416045-EVAL and CYW920829M2EVK-02 |
+| 3.2.1   | Readme Update |
 ------
 
 <br />
